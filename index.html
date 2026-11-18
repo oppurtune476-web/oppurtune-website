@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OPPURTUNE | Connect • Collaborate • Grow</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="navbar">
+  <a class="logo" href="#" onclick="showPage('home')">OPPURTUNE<span>.</span></a>
+  <nav id="navLinks">
+    <a href="#" onclick="showPage('home')">Home</a>
+    <a href="#" onclick="showPage('explore')">Explore Projects</a>
+    <a id="dashboardNavLink" href="#" style="display:none" onclick="openDashboard(); return false;">Dashboard</a>
+    <a href="#" onclick="openAuth('student','login')">Student Login</a>
+    <a href="#" onclick="openAuth('business','login')">Business Login</a>
+    <a class="admin-link" href="#" onclick="openAuth('admin','login')">★ Admin</a>
+  </nav>
+  <button class="menu-btn" onclick="toggleMenu()">☰</button>
+</header>
+
+<main>
+  <section id="home" class="page-section">
+    <div class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">CONNECT • COLLABORATE • GROW</p>
+        <h1>Real Business Problems.<br>Real <span>Student Solutions.</span></h1>
+        <p class="hero-description">Connect with businesses, solve real-world challenges, build your skills and gain valuable project experience.</p>
+        <div class="hero-buttons">
+          <button class="btn primary" onclick="showPage('explore')">⌕ Explore Projects</button>
+          <button class="btn outline" onclick="openAuth('business','login')">▣ Business Login</button>
+          <button class="btn outline purple-outline" onclick="openAuth('student','register')">🎓 Join as Student</button>
+        </div>
+      </div>
+      <div class="hero-side">
+        <div class="info-card"><span>🎓</span><div><h3>For Students</h3><p>Gain experience through real projects.</p></div></div>
+        <div class="info-card"><span>🏢</span><div><h3>For Businesses</h3><p>Find talented students to solve problems.</p></div></div>
+      </div>
+      <div class="hero-decoration"></div>
+    </div>
+
+    <section class="opportunities">
+      <p class="section-kicker">• OPPORTUNITIES •</p>
+      <h2>Explore Projects</h2>
+      <p class="section-subtitle">Discover projects and gain practical experience.</p>
+      <input id="homeSearch" class="search-input" aria-label="Search projects, skills or businesses" placeholder="⌕  Search projects, skills or businesses..." oninput="renderProjects()">
+      <div id="homeProjects" class="project-grid"></div>
+      <button class="btn primary" onclick="showPage('explore')">Explore All Projects →</button>
+    </section>
+  </section>
+
+  <section id="explore" class="page-section content-page">
+    <div class="page-heading">
+      <p class="section-kicker">OPPORTUNITIES</p>
+      <h1>Explore Projects</h1>
+      <p>Find real business challenges and apply your skills.</p>
+    </div>
+    <input id="projectSearch" class="search-input" aria-label="Search projects, skills or businesses" placeholder="Search projects, skills or businesses..." oninput="renderProjects()">
+    <div id="allProjects" class="project-grid"></div>
+  </section>
+
+  <section id="auth" class="page-section corporate-auth">
+    <!-- Corporate login background and brand message -->
+    <div class="auth-campus" aria-hidden="true"></div>
+    <div class="auth-glow auth-glow-one" aria-hidden="true"></div>
+    <div class="auth-glow auth-glow-two" aria-hidden="true"></div>
+
+    <div class="auth-layout">
+      <!-- Left-side brand and value proposition -->
+      <section class="auth-intro" aria-label="About OPPURTUNE">
+        <a class="auth-brand" href="#" onclick="showPage('home'); return false;">OPPURTUNE<span>.</span></a>
+        <div class="auth-intro-copy">
+          <p class="auth-eyebrow">CONNECT · COLLABORATE · GROW</p>
+          <h1>Build What’s Next.<br><span>Start With Opportunity.</span></h1>
+          <p class="auth-lead">A professional platform connecting emerging talent with real business challenges and meaningful project experience.</p>
+
+          <div class="auth-benefits">
+            <div class="auth-benefit">
+              <span class="auth-benefit-icon" aria-hidden="true">↗</span>
+              <div><h3>Real-world projects</h3><p>Work on practical challenges shared by businesses.</p></div>
+            </div>
+            <div class="auth-benefit">
+              <span class="auth-benefit-icon" aria-hidden="true">◎</span>
+              <div><h3>Industry collaboration</h3><p>Connect student talent with business teams.</p></div>
+            </div>
+            <div class="auth-benefit">
+              <span class="auth-benefit-icon" aria-hidden="true">✓</span>
+              <div><h3>Career-ready experience</h3><p>Build skills, a portfolio, and professional confidence.</p></div>
+            </div>
+          </div>
+        </div>
+        <p class="auth-footnote">OPPURTUNE · A project collaboration platform</p>
+      </section>
+
+      <!-- Right-side authentication card. IDs are retained for existing script.js compatibility. -->
+      <section class="auth-card" aria-labelledby="authTitle">
+        <button class="back-link" type="button" onclick="showPage('home')">← Back to Home</button>
+        <p class="auth-card-kicker">SECURE ACCESS</p>
+        <h1 id="authTitle">Student Login</h1>
+        <p id="authSubtitle">Welcome to OPPURTUNE</p>
+
+        <div class="auth-role-picker" aria-label="Choose account type">
+          <button type="button" onclick="openAuth('student','login')" data-role-choice="student">Student</button>
+          <button type="button" onclick="openAuth('business','login')" data-role-choice="business">Business</button>
+          <button type="button" onclick="openAuth('admin','login')" data-role-choice="admin">Admin</button>
+        </div>
+
+        <div class="auth-tabs">
+          <button id="loginTab" type="button" onclick="setAuthMode('login')">Login</button>
+          <button id="registerTab" type="button" onclick="setAuthMode('register')">Register</button>
+        </div>
+
+        
+<form id="authForm">
+  <div id="registerFields"></div>
+
+  <label for="authEmail">Email Address</label>
+  <input
+    id="authEmail"
+    type="email"
+    placeholder="Enter your email"
+    required
+  >
+
+  <label for="authPassword">Password</label>
+  <div class="password-wrapper">
+    <input
+      id="authPassword"
+      type="password"
+      placeholder="Enter password"
+      minlength="6"
+      required
+    >
+    <button
+      type="button"
+      id="togglePassword"
+      onclick="togglePasswordVisibility()"
+    >Show</button>
+  </div>
+
+  <div class="login-options" id="loginOptions">
+    
+
+   
+  </div>
+
+  <button class="btn primary full" type="submit" id="authSubmit">
+    Login
+  </button>
+</form>
+
+        <p id="authMessage" class="message" role="status" aria-live="polite"></p>
+        <div id="demoCredentials" class="demo-credentials"></div>
+        <p class="auth-security-note">Demo build: authentication data is stored in this browser only.</p>
+      </section>
+    </div>
+  </section>
+
+  <section id="studentDashboard" class="page-section dashboard">
+    <div class="dashboard-header">
+      <div><p class="section-kicker">STUDENT WORKSPACE</p><h1>Welcome, <span id="studentName"></span></h1><p>Discover projects and build your portfolio.</p></div>
+      <button class="btn outline dark-outline" onclick="logout()">Logout</button>
+    </div>
+    <div class="dashboard-nav">
+      <button onclick="studentTab('overview')">Overview</button>
+      <button onclick="studentTab('applications')">My Applications</button>
+      <button onclick="studentTab('saved')">Saved Projects</button>
+      <button onclick="studentTab('resume')">Resume Builder</button>
+      <button onclick="studentTab('portfolio')">Portfolio</button>
+    </div>
+    <div id="studentPanel"></div>
+  </section>
+
+  <section id="businessDashboard" class="page-section dashboard">
+    <div class="dashboard-header">
+      <div><p class="section-kicker">BUSINESS WORKSPACE</p><h1>Business Dashboard</h1><p>Post problems and collaborate with students.</p></div>
+      <button class="btn outline dark-outline" onclick="logout()">Logout</button>
+    </div>
+    <div class="dashboard-nav">
+      <button onclick="businessTab('overview')">Overview</button>
+      <button onclick="businessTab('post')">Post a Problem</button>
+      <button onclick="businessTab('projects')">My Projects</button>
+      <button onclick="businessTab('applications')">Applications</button>
+    </div>
+    <div id="businessPanel"></div>
+  </section>
+
+  <section id="adminDashboard" class="page-section dashboard">
+    <div class="dashboard-header">
+      <div><p class="section-kicker">CONTROL CENTER</p><h1>Admin Dashboard</h1><p>Manage businesses and project approvals.</p></div>
+      <button class="btn outline dark-outline" onclick="logout()">Logout</button>
+    </div>
+    <div class="dashboard-nav">
+      <button onclick="adminTab('overview')">Overview</button>
+      <button onclick="adminTab('businesses')">Businesses</button>
+      <button onclick="adminTab('projects')">Projects</button>
+      <button onclick="adminTab('users')">Users</button>
+    </div>
+    <div id="adminPanel"></div>
+  </section>
+</main>
+
+<footer>
+  <strong>OPPURTUNE.</strong>
+  <p>Connect • Collaborate • Grow</p>
+  <small>© 2026 OPPURTUNE. College project demo.</small>
+</footer>
+
+<script src="dashboard-navigation.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
